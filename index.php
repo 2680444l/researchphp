@@ -34,15 +34,15 @@
             return $arr[$r]/count($ratings) * 100;
         }
 
-        $percentages = function($sectionarr) {
-            $total = count($sectionarr);
+        $percentages = function($arr) {
+            $total = count($arr);
             $percentages = [];
-            foreach(array_count_values($sectionarr) as $value => $count) {
+            foreach(array_count_values($arr) as $value => $count) {
                 $percentages[$value] = $count / $total;
             }
             return $percentages;    
         };
-        
+
         echo '<pre>';
 
         print_r($percentages($sectionarr));
