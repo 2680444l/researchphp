@@ -7,27 +7,49 @@
         <h3>Interactions</h3>
   
         <?php
-        echo "<html><body><center><table>\n\n";
-  
-        // Open a file
-        $file = fopen("interactions.csv", "r");
-  
-        // Fetching data from csv file row by row
-        while (($data = fgetcsv($file)) !== false) {
+        $arr = array();
+        $sectionarr = array();
+        $handle = fopen("interactions.csv", "r");
+        while(!feof($handle))
+        {
+            $arrOfCSVLine = fgetcsv($handle);
+            $section = $arrOfCSVLine[0];
+            $sectionName = $arrOfCSVLine[1];
             
-
-            // HTML tag for placing in row format
-            echo "<tr>";
-            foreach ($data as $i) {
-                echo "<td>" . htmlspecialchars($i) 
-                    . "</td>";
+            array_push($sectionarr, $section);
+            
+            if(!array_key_exists($section, $arr)){
+                $arr[$section] = $section;
+                $arr[$section] = $sectionName;
             }
+        
         }
-  
-        // Closing the file
-        fclose($file);
-  
-        echo "\n</table></center></body></html>";
+
+        function get_percentage($total, $number){
+            return round(((int)$number*100)/$total, 2);
+        }
+
+        function findPercentage($r, $ratings){
+            $arr = array_count_values($ratings);
+            return $arr[$r]/count($ratings) * 100;
+        }
+
+        $percentages = function($sectionarr) {
+            $total = count($sectionarr);
+            $percentages = [];
+            foreach(array_count_values($sectionarr) as $value => $count) {
+                $percentages[$value] = $count / $total;
+            }
+            return $percentages;    
+        };
+        
+        echo '<pre>';
+
+        print_r($percentages($sectionarr));
+
+        print_r($arr);
+        print_r(array_count_values($sectionarr));
+        
         ?>
     </center>
 </body>
