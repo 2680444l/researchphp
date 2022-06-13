@@ -38,7 +38,7 @@
             $total = count($arr);
             $percentages = [];
             foreach(array_count_values($arr) as $value => $count) {
-                $percentages[$value] = $count / $total;
+                $percentages[$value] = round($count / $total, 2)*100;
             }
             return $percentages;    
         };
