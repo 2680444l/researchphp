@@ -25,15 +25,6 @@
         
         }
 
-        function get_percentage($total, $number){
-            return round(((int)$number*100)/$total, 2);
-        }
-
-        function findPercentage($r, $ratings){
-            $arr = array_count_values($ratings);
-            return $arr[$r]/count($ratings) * 100;
-        }
-
         $percentages = function($arr) {
             $total = count($arr);
             $percentages = [];
@@ -46,9 +37,10 @@
         echo '<pre>';
 
         print_r($percentages($sectionarr));
-
         print_r($arr);
-        print_r(array_count_values($sectionarr));
+
+        echo '<pre>';
+
         
         ?>
     </center>
